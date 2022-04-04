@@ -2,6 +2,7 @@ library(seqinr)
 library(babette)
 library(dplyr)
 
+#load fasta data
 EV_fasta <- read.fasta("./sequence_alignment.fasta", as.string = T, forceDNAtolower = F)
 
 names(EV_fasta)
@@ -32,7 +33,10 @@ for(i in 1:nrow(EV_metadata2)){
 US_metadata <- EV_metadata2 %>% 
   filter(country == "USA")
 
-US_metadata_2 <- US_metadata[-unique(c(grep("EV-D68/Homosapiens", US_metadata$strain), grep("EVD")),]
+US_metadata_2 <- US_metadata[-(grep("EV-D68/Homosapiens", US_metadata$strain)),]
+
+write.csv(EV_metadata2, file = "./world_metadata.csv")
+write.csv(US_metadata_2, file = "./US_metadata.csv")
 
 EV_output <- bbt_run(EV_fasta, 
                      site_model = create_hky_site_model(), 
