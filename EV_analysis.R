@@ -50,3 +50,7 @@ EV_output <- bbt_run(EV_fasta,
                      beast2_path = "/Applications/BEAST 2.6.6/bin/beast",
                      overwrite = T, 
                      verbose = T)
+
+US_fasta <- EV_fasta[US_metadata_2$accession_2]
+
+write.fasta(US_fasta, names = US_metadata_2$accession_2, file.out = "./US_sequences.fasta")
